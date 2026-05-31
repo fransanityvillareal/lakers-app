@@ -10,9 +10,49 @@
 		15E491F72FC68BA20057E6F4 /* LakeShow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LakeShow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		15D9251C2FCC7C860078E588 /* Exceptions for "LakeShow" folder in "LakeShow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components/GameCardView.swift,
+				Components/LakeShowBackgroundView.swift,
+				Components/PlayerCardView.swift,
+				Components/QuickActionCardView.swift,
+				Components/SectionHeaderView.swift,
+				Components/StatCardView.swift,
+				Data/MockGames.swift,
+				Data/MockPlayers.swift,
+				Data/MockStats.swift,
+				Models/Game.swift,
+				Models/Player.swift,
+				Models/TeamStat.swift,
+				Models/Trade.swift,
+				Models/TradeResult.swift,
+				Theme/LakeShowTheme.swift,
+				ViewModels/HomeViewModel.swift,
+				ViewModels/RosterViewModel.swift,
+				ViewModels/ScheduleViewModel.swift,
+				ViewModels/StatsViewModel.swift,
+				ViewModels/TradeSimulatorViewModel.swift,
+				Views/HomeView.swift,
+				Views/MainTabView.swift,
+				Views/MoreView.swift,
+				Views/PlayerDetailView.swift,
+				Views/RosterView.swift,
+				Views/ScheduleView.swift,
+				Views/StatsView.swift,
+				Views/TradeSimulatorView.swift,
+			);
+			target = 15E491F62FC68BA20057E6F4 /* LakeShow */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		15E491F92FC68BA20057E6F4 /* LakeShow */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				15D9251C2FCC7C860078E588 /* Exceptions for "LakeShow" folder in "LakeShow" target */,
+			);
 			path = LakeShow;
 			sourceTree = "<group>";
 		};
@@ -78,7 +118,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2640;
-				LastUpgradeCheck = 2640;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					15E491F62FC68BA20057E6F4 = {
 						CreatedOnToolsVersion = 26.4.1;
@@ -184,6 +224,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -241,6 +282,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -256,6 +298,8 @@
 				DEVELOPMENT_TEAM = PT4LQK8A9F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = LakeShow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +332,8 @@
 				DEVELOPMENT_TEAM = PT4LQK8A9F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = LakeShow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

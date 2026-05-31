@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "jarred_vanderbilt.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

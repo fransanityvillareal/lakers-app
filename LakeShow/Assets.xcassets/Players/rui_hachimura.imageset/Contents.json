@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "rui_hachimura.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
