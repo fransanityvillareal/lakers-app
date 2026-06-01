@@ -9,19 +9,23 @@ struct PlayerDetailView: View {
         ZStack {
             LakeShowBackgroundView()
 
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 30) {
-                    playerHeader
+            GeometryReader { proxy in
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .center, spacing: 30) {
+                        playerHeader
+                            .frame(width: proxy.size.width)
 
-                    VStack(alignment: .leading, spacing: 24) {
-                        PlayerDetailTabBarView(selection: $selectedTab)
-                        PlayerDetailTabContentView(player: player, selectedTab: selectedTab)
+                        VStack(alignment: .leading, spacing: 24) {
+                            PlayerDetailTabBarView(selection: $selectedTab)
+                            PlayerDetailTabContentView(player: player, selectedTab: selectedTab)
+                        }
+                        .frame(width: max(proxy.size.width - 40, 0), alignment: .leading)
                     }
-                    .padding(.horizontal, 24)
+                    .frame(width: proxy.size.width)
+                    .padding(.bottom, 32)
                 }
-                .padding(.bottom, 32)
+                .ignoresSafeArea(.container, edges: .top)
             }
-            .ignoresSafeArea(.container, edges: [.top, .horizontal])
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
@@ -252,7 +256,6 @@ private struct PlayerDetailInfoGridView: View {
             PlayerDetailInfoCell(value: allStarCount, label: "All-Star")
             PlayerDetailInfoCell(value: allNbaCount, label: "All-NBA")
         }
-        .padding(.horizontal, 20)
         .padding(.vertical, 30)
         .frame(maxWidth: .infinity)
     }

@@ -81,7 +81,7 @@ private struct TeamStat: Identifiable {
 
 private enum MockData {
     static let players = [
-        Player(name: "LeBron James", imageName: "lebron_james", coverImageName: nil, number: 23, position: "Forward", height: "6'9\"", weight: "250 lb", age: 41, ppg: 24.4, rpg: 7.8, apg: 8.2, rating: 96, tradeValue: 94),
+        Player(name: "LeBron James", imageName: "lebron_james", coverImageName: "lebron_james_cover", number: 23, position: "Forward", height: "6'9\"", weight: "250 lb", age: 41, ppg: 24.4, rpg: 7.8, apg: 8.2, rating: 96, tradeValue: 94),
         Player(name: "Luka Doncic", imageName: "luka_doncic", coverImageName: "luka_doncic_cover", number: 77, position: "Guard", height: "6'7\"", weight: "230 lb", age: 27, ppg: 29.2, rpg: 8.6, apg: 8.9, rating: 97, tradeValue: 98),
         Player(name: "Austin Reaves", imageName: "austin_reaves", coverImageName: nil, number: 15, position: "Guard", height: "6'5\"", weight: "197 lb", age: 28, ppg: 16.8, rpg: 4.3, apg: 5.5, rating: 84, tradeValue: 82),
         Player(name: "Rui Hachimura", imageName: "rui_hachimura", coverImageName: nil, number: 28, position: "Forward", height: "6'8\"", weight: "230 lb", age: 28, ppg: 13.6, rpg: 4.4, apg: 1.3, rating: 80, tradeValue: 74),
@@ -349,19 +349,23 @@ private struct PlayerDetailScreen: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 30) {
-                    PlayerHeroHeader(player: player)
+            GeometryReader { proxy in
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .center, spacing: 30) {
+                        PlayerHeroHeader(player: player)
+                            .frame(width: proxy.size.width)
 
-                    VStack(alignment: .leading, spacing: 24) {
-                        PlayerDetailTabBar(selection: $selectedTab)
-                        PlayerDetailTabContent(player: player, selectedTab: selectedTab)
+                        VStack(alignment: .leading, spacing: 24) {
+                            PlayerDetailTabBar(selection: $selectedTab)
+                            PlayerDetailTabContent(player: player, selectedTab: selectedTab)
+                        }
+                        .frame(width: max(proxy.size.width - 40, 0), alignment: .leading)
                     }
-                    .padding(.horizontal, 24)
+                    .frame(width: proxy.size.width)
+                    .padding(.bottom, 32)
                 }
-                .padding(.bottom, 32)
+                .ignoresSafeArea(.container, edges: .top)
             }
-            .ignoresSafeArea(.container, edges: [.top, .horizontal])
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
@@ -535,7 +539,6 @@ private struct PlayerProfileInfoGrid: View {
             ProfileInfoCell(value: allStarCount, label: "All-Star")
             ProfileInfoCell(value: allNbaCount, label: "All-NBA")
         }
-        .padding(.horizontal, 20)
         .padding(.vertical, 30)
         .frame(maxWidth: .infinity)
     }

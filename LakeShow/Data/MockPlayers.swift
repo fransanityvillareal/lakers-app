@@ -2,7 +2,7 @@ import Foundation
 
 enum MockPlayers {
     static let players: [Player] = [
-        Player(name: "LeBron James", imageName: "lebron_james", coverImageName: nil, jerseyNumber: 23, position: "Forward", height: "6'9\"", weight: "250 lb", age: 41, pointsPerGame: 24.4, reboundsPerGame: 7.8, assistsPerGame: 8.2, overallRating: 96, tradeValue: 94),
+        Player(name: "LeBron James", imageName: "lebron_james", coverImageName: "lebron_james_cover", jerseyNumber: 23, position: "Forward", height: "6'9\"", weight: "250 lb", age: 41, pointsPerGame: 24.4, reboundsPerGame: 7.8, assistsPerGame: 8.2, overallRating: 96, tradeValue: 94),
         Player(name: "Luka Doncic", imageName: "luka_doncic", coverImageName: "luka_doncic_cover", jerseyNumber: 77, position: "Guard", height: "6'7\"", weight: "230 lb", age: 27, pointsPerGame: 29.2, reboundsPerGame: 8.6, assistsPerGame: 8.9, overallRating: 97, tradeValue: 98),
         Player(name: "Austin Reaves", imageName: "austin_reaves", coverImageName: nil, jerseyNumber: 15, position: "Guard", height: "6'5\"", weight: "197 lb", age: 28, pointsPerGame: 16.8, reboundsPerGame: 4.3, assistsPerGame: 5.5, overallRating: 84, tradeValue: 82),
         Player(name: "Rui Hachimura", imageName: "rui_hachimura", coverImageName: nil, jerseyNumber: 28, position: "Forward", height: "6'8\"", weight: "230 lb", age: 28, pointsPerGame: 13.6, reboundsPerGame: 4.4, assistsPerGame: 1.3, overallRating: 80, tradeValue: 74),
