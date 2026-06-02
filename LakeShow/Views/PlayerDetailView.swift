@@ -207,12 +207,191 @@ private struct PlayerDetailTabContentView: View {
             }
             .padding(.horizontal, 4)
         case .games:
-            DetailSection(title: "Recent Games", rows: [
-                ("Lakers vs Warriors", "Upcoming"),
-                ("Lakers vs Nuggets", "112-108"),
-                ("Lakers at Suns", "Live")
-            ])
+            VStack(alignment: .leading, spacing: 18) {
+                Text("Recent Games")
+                    .font(.headline)
+                    .fontWeight(.black)
+                    .foregroundStyle(.white)
+
+                ForEach(recentGames) { game in
+                    PlayerRecentGameCardView(player: player, game: game)
+                }
+            }
             .padding(.horizontal, 4)
+        }
+    }
+
+    private var recentGames: [PlayerRecentGame] {
+        let reactionsOne = [
+            PlayerRecentGameReaction(systemImage: "face.smiling", count: "7.8k"),
+            PlayerRecentGameReaction(systemImage: "medal.fill", count: "1"),
+            PlayerRecentGameReaction(systemImage: "figure.walk", count: "")
+        ]
+        let reactionsTwo = [
+            PlayerRecentGameReaction(systemImage: "face.smiling", count: "8.9k"),
+            PlayerRecentGameReaction(systemImage: "hand.thumbsup.fill", count: ""),
+            PlayerRecentGameReaction(systemImage: "medal.fill", count: "")
+        ]
+        let reactionsThree = [
+            PlayerRecentGameReaction(systemImage: "face.smiling", count: "13.7k"),
+            PlayerRecentGameReaction(systemImage: "figure.walk", count: ""),
+            PlayerRecentGameReaction(systemImage: "medal.fill", count: "")
+        ]
+
+        return [
+            PlayerRecentGame(
+                fps: "58.7 fps",
+                points: 43,
+                rebounds: 6,
+                assists: 7,
+                reactions: reactionsOne,
+                dateLabel: "March 26 @ IND",
+                result: .win
+            ),
+            PlayerRecentGame(
+                fps: "55.4 fps",
+                points: 32,
+                rebounds: 7,
+                assists: 6,
+                reactions: reactionsTwo,
+                dateLabel: "March 24 @ DET",
+                result: .loss
+            ),
+            PlayerRecentGame(
+                fps: "62 fps",
+                points: 33,
+                rebounds: 5,
+                assists: 8,
+                reactions: reactionsThree,
+                dateLabel: "March 22 @ ORL",
+                result: .win
+            )
+        ]
+    }
+}
+
+private struct PlayerRecentGame: Identifiable {
+    enum Result {
+        case win
+        case loss
+
+        var label: String {
+            switch self {
+            case .win: return "W"
+            case .loss: return "L"
+            }
+        }
+
+        var color: Color {
+            switch self {
+            case .win: return .green
+            case .loss: return .red
+            }
+        }
+    }
+
+    let id = UUID()
+    let fps: String
+    let points: Int
+    let rebounds: Int
+    let assists: Int
+    let reactions: [PlayerRecentGameReaction]
+    let dateLabel: String
+    let result: Result
+}
+
+private struct PlayerRecentGameReaction: Identifiable {
+    let id = UUID()
+    let systemImage: String
+    let count: String
+}
+
+private struct PlayerRecentGameCardView: View {
+    let player: Player
+    let game: PlayerRecentGame
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .center, spacing: 12) {
+                Image(player.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 56, height: 56)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(LakeShowTheme.gold.opacity(0.6), lineWidth: 2))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(player.name)
+                        .font(.headline)
+                        .foregroundStyle(.white)
+
+                    Text(game.fps)
+                        .font(.caption)
+                        .foregroundStyle(LakeShowTheme.mutedText)
+                }
+
+                Spacer()
+
+                HStack(spacing: 6) {
+                    Image(systemName: "bolt.fill")
+                        .font(.caption)
+                    Text("5.7")
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                }
+                .foregroundStyle(.white.opacity(0.75))
+            }
+
+            HStack(spacing: 18) {
+                statValue("pts", value: game.points)
+                statValue("reb", value: game.rebounds)
+                statValue("ast", value: game.assists)
+            }
+
+            HStack(spacing: 10) {
+                ForEach(game.reactions) { reaction in
+                    HStack(spacing: 6) {
+                        Image(systemName: reaction.systemImage)
+                            .font(.caption)
+                        if !reaction.count.isEmpty {
+                            Text(reaction.count)
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                        }
+                    }
+                    .foregroundStyle(.white.opacity(0.75))
+                }
+            }
+
+            HStack(spacing: 8) {
+                Text(game.dateLabel)
+                    .font(.caption)
+                    .foregroundStyle(LakeShowTheme.mutedText)
+
+                Text(game.result.label)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundStyle(game.result.color)
+            }
+        }
+        .padding(16)
+        .background(LakeShowTheme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(LakeShowTheme.border, lineWidth: 1)
+        )
+    }
+
+    private func statValue(_ label: String, value: Int) -> some View {
+        HStack(alignment: .lastTextBaseline, spacing: 4) {
+            Text("\(value)")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
+
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(LakeShowTheme.mutedText)
         }
     }
 }

@@ -1,8 +1,19 @@
 import SwiftUI
+import UIKit
 
 struct HomeView: View {
     private let viewModel = HomeViewModel()
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    private static let preheatCache = NSCache<NSString, UIImage>()
+
+    private var preheatImageNames: [String] {
+        var names: [String] = []
+        for p in RosterViewModel().players {
+            names.append(p.imageName)
+            if let cover = p.coverImageName { names.append(cover) }
+        }
+        return names
+    }
 
     var body: some View {
         ZStack {
@@ -19,6 +30,7 @@ struct HomeView: View {
                 .padding(.top, 18)
                 .padding(.bottom, 32)
             }
+            .onAppear { preheatImages() }
         }
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -133,6 +145,31 @@ struct HomeView: View {
                     .buttonStyle(.plain)
                 }
             }
+        }
+    }
+
+    private func preheatImages() {
+        let names = Set(preheatImageNames).filter { !$0.isEmpty }
+        DispatchQueue.global(qos: .userInitiated).async {
+            for name in names {
+                if let image = UIImage(named: name) {
+                    let key = name as NSString
+                    if HomeView.preheatCache.object(forKey: key) == nil {
+                        let decoded = decompressed(image: image)
+                        HomeView.preheatCache.setObject(decoded, forKey: key)
+                    }
+                }
+            }
+        }
+    }
+
+    private func decompressed(image: UIImage) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = image.scale
+        format.opaque = false
+        let renderer = UIGraphicsImageRenderer(size: image.size, format: format)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: image.size))
         }
     }
 

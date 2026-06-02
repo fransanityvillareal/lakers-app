@@ -1,6 +1,8 @@
 import SwiftUI
+import UIKit
 
 struct PlayerCardView: View {
+    @Environment(\.displayScale) private var displayScale
     let player: Player
 
     var body: some View {
@@ -15,8 +17,15 @@ struct PlayerCardView: View {
                 .padding(.bottom, -18)
 
             HStack(spacing: 12) {
-                Image(player.imageName)
-                    .resizable()
+                Group {
+                    if let uiImage = RosterImagePreheater.shared.image(for: player.imageName, scale: displayScale) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                    } else {
+                        Image(player.imageName)
+                            .resizable()
+                    }
+                }
                     .scaledToFit()
                     .frame(width: 154, height: 176, alignment: .bottom)
                     .opacity(0.9)

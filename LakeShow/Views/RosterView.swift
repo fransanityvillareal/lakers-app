@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RosterView: View {
+    @Environment(\.displayScale) private var displayScale
     private let viewModel = RosterViewModel()
 
     var body: some View {
@@ -8,7 +9,7 @@ struct RosterView: View {
             LakeShowBackgroundView()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 16) {
+                LazyVStack(alignment: .leading, spacing: 16) {
                     SectionHeaderView(title: "Roster", subtitle: "Mock Lakers rotation and trade values")
 
                     ForEach(viewModel.players) { player in
@@ -28,6 +29,9 @@ struct RosterView: View {
         }
         .navigationTitle("Roster")
         .navigationBarTitleDisplayMode(.inline)
+        .task {
+            RosterImagePreheater.shared.preheat(names: viewModel.players.map(\.imageName), scale: displayScale)
+        }
     }
 }
 
